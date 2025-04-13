@@ -1,35 +1,81 @@
- #Explanation:
+#EXPLANATION
 
- The objective of this project is to generate a maze and find a valid path from  start point to an exit using recursion.This task involves:
-1)Maze Generation:Creating a random maze where each cell is either a wall or a path using the recursive backtracking algorithm
+Overview
+This Java project implements a maze generator using recursive backtracking and a recursive depth-first search (DFS) algorithm to find a path from a defined start point (S) to an exit point (E).The application runs in the console and provides a visual representation of both the maze and the solution path.The project is structured into modular Java classes and meets all the specified coursework requirements
 
-2)Pathfinding:Using recursion to find a path from the start point to the exit implementing a Depth-First Search (DFS) approach
+Project Objectives &Features
 
-3)User Input and Output:Allowing the user to specify the maze size and display the generated maze and its solution
+Generate maze using recursive backtracking	
+Solve maze using recursive DFS	
+Start point and exit point clearly defined	(s, e)
+User-defined or default maze size 
+Modular code (separate classes)	 Classes:Main,maze,solver,utils 
+GitHub with 8+ commits	
+Sample output provided	
+Explanation and documentation
 
-##GitHub Structure:
+How the program works:
 
-Initial Commit:Setting up the project and creating a README file
+1. Maze Generation (in Maze.java)
+The maze is generated using a recursive backtracking algorithm
+A grid of walls is initialized then paths are carved by visiting random neighbors recursively
+The entrance is set at (1, 1) and the exit at (rows-2, cols-2)
+The maze always has one guaranteed path from start to exit
+2. Pathfinding (Solver.java)
+The maze is solved using recursive depth-first search (DFS)
+The method visits adjacent cells (up,down left,right) backtracking when necessary
+The recursion terminates when the exit is found
+3. User Input (InputHandler.java)
+Reads user input from the console for maze dimensions
+If invalid input is entered (non-numeric or too small) defaults are applied
+4. Displaying the Maze (MazePrinter.java)
+Responsible for printing the maze to the console with:
+# = wall
+= empty path
+S = start
+E = exit
+. = solution path
 
-Maze Generation:Adding the recursive backtracking algorithm to generate a random maze.
+Maze-Recursive-Java/
+src/:
+Main.java          
+Maze.java           
+Solver.java         
+utils.java 
+MazePrinter.java    
+sample_output.txt    
+README.md               
+.gitignore    
 
-Pathfinding:Implementing the recursive DFS algorithm to find a path through the maze
+ Algorithms Used:
+1)Maze Generation-Recursive Backtracking:
+Begins at a random position
+Recursively carves paths in random directions
+Ensures that all cells are accessible from the start
 
-Display Function: Implementing a function to print the maze and the solution
+2)Pathfinding –Recursive DFS:
+Recursively explores all directions from the current cell
+Marks path if it leads to the exit,otherwise backtracks
 
-Refactoring: Ensuring the code is modular with separate methods for generating the maze  solving it   and displaying results
+Constraints Fulfilled:
+Maze is always solvable
+Recursive algorithm only for solving
+No external libraries used
+Clean project structure
+Input handling output,documentation
 
-Final Commit:Debugging and cleaning up the code for clarity and performance
 
-##Project Documentation:
 
-Maze Generation:The maze is created using a recursive backtracking algorithm.this ensures that the maze is always solvable by randomly choosing paths and backtracking if a dead-end is encountered
 
-Pathfinding:The DFS algorithm explores the maze recursively.It tries moving in all four directions (up, down, left, right) and backtracks when no valid path is found
 
-Input-Output: The program is hardcoded for a 10x10 maze but you could extend it to accept user input for dimensions and start-exit points.The maze and the solution path are displayed in the console
 
-Efficiency:While not the most optimal algorithm the solution works efficiently for small to medium maze sizes (10x10)
+
+
+
+
+
+
+
 
 
  
