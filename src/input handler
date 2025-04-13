@@ -1,1 +1,20 @@
+// InputHandler.java
+import java.util.Scanner;
 
+public class InputHandler {
+    public static int getMazeSize(String prompt) {
+        Scanner scanner = new Scanner(System.in);
+        int size = 10;
+        System.out.print(prompt);
+        try {
+            size = Integer.parseInt(scanner.nextLine());
+            if (size < 10) {
+                System.out.println("Using default value 10 (minimum allowed).");
+                size = 10;
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Using default value 10.");
+        }
+        return size;
+    }
+}
