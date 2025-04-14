@@ -1,58 +1,48 @@
-// Maze.java
-import java.util.Random;
+import java.util.*;
 
-public class Maze {
+public class MazeGenerator {
     private final int rows, cols;
-    public char[][] grid;
-    private final Random rand = new Random();
+    private final char[][] maze;
+    private static final char WALL = '#';
+    private static final char PATH = ' ';
+    private final Random random = new Random();
 
-    public Maze(int rows, int cols) {
-        this.rows = rows % 2 == 0 ? rows + 1 : rows;
-        this.cols = cols % 2 == 0 ? cols + 1 : cols;
-        grid = new char[this.rows][this.cols];
-        initializeMaze();
+    public MazeGenerator(int rows, int cols) {
+        this.rows = rows;
+        this.cols = cols;
+        maze = new char[rows][cols];
+        for (int i = 0; i < rows; i++) {
+            Arrays.fill(maze[i], WALL);
+        }
     }
 
-    private void initializeMaze() {
-        for (int r = 0; r < rows; r++) {
-            for (int c = 0; c < cols; c++) {
-                grid[r][c] = '#';
+    public char[][] generate() {
+        generateMaze(1, 1);
+
+        maze[1][1] = PATH;
+        maze[rows - 2][cols - 2] = PATH;
+        return maze;
+    }
+
+    private void generateMaze(int x, int y) {
+        maze[x][y] = PATH;
+
+        int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+        Collections.shuffle(Arrays.asList(directions));
+
+        for (int[] dir : directions) {
+            int nx = x + dir[0] * 2;
+            int ny = y + dir[1] * 2;
+
+            if (inBounds(nx, ny) && maze[nx][ny] == WALL) {
+                maze[x + dir[0]][y + dir[1]] = PATH;
+                generateMaze(nx, ny);
             }
         }
-          if (isValid(nr, nc)) {
-                grid[r + dir[0] / 2][c + dir[1] / 2] = ' ';
-                grid[nr][nc] = ' ';
-                carvePath(nr, nc);
-            }
-        }
     }
 
-    private boolean isValid(int r, int c) {
-        return r > 0 && r < rows - 1 && c > 0 && c < cols - 1 && grid[r][c] == '#';
-    }
-
-    private void shuffleArray(int[][] array) {
-        for (int i = array.length - 1; i > 0; i--) {
-            int index = rand.nextInt(i + 1);
-            int[] temp = array[i];
-            array[i] = array[index];
-            array[index] = temp;
-        }
+    private boolean inBounds(int x, int y) {
+        return x > 0 && y > 0 && x < rows - 1 && y < cols - 1;
     }
 }
-   }
 
-    public void generate() {
-        carvePath(1, 1);
-        grid[1][1] = 'S';
-        grid[rows - 2][cols - 2] = 'E';
-    }
-
-    private void carvePath(int r, int c) {
-        int[][] dirs = {{0, 2}, {2, 0}, {0, -2}, {-2, 0}};
-        shuffleArray(dirs);
-
-        for (int[] dir : dirs) {
-            int nr = r + dir[0];
-            int nc = c + dir[1];
-   
