@@ -1,39 +1,37 @@
-/ Solver.java
-public class Solver {
-    private final Maze maze;
+public class MazeSolver {
+    private final char[][] maze;
     private final boolean[][] visited;
+    private final int rows, cols;
+    private static final char PATH = ' ';
+    private static final char VISITED = '.';
+    private final int[] dx = {-1, 1, 0, 0};
+    private final int[] dy = {0, 0, -1, 1};
 
-    public Solver(Maze maze) {
+    public MazeSolver(char[][] maze) {
         this.maze = maze;
-        visited = new boolean[maze.grid.length][maze.grid[0].length];
+        this.rows = maze.length;
+        this.cols = maze[0].length;
+        this.visited = new boolean[rows][cols];
     }
-
     public boolean solve() {
-        return dfs(1, 1);
+        return dfs(1, 1, rows - 2, cols - 2);
     }
+    private boolean dfs(int x, int y, int endX, int endY) {
+        if (!inBounds(x, y) || maze[x][y] != PATH || visited[x][y]) return false;
 
-    private boolean dfs(int r, int c) {
-        if (r < 0 || r >= maze.grid.length || c < 0 || c >= maze.grid[0].length ||
-                maze.grid[r][c] == '#' || visited[r][c]) {
-            return false;
-        }
-        visited[r][c] = true;
+        visited[x][y] = true;
+        maze[x][y] = VISITED;
 
-        if (maze.grid[r][c] == 'E') {
-            return true;
-        }
+        if (x == endX && y == endY) return true;
 
-        if (maze.grid[r][c] != 'S') {
-            maze.grid[r][c] = '.';
+        for (int i = 0; i < 4; i++) {
+            if (dfs(x + dx[i], y + dy[i], endX, endY)) return true;
         }
-
-        if (dfs(r + 1, c) || dfs(r - 1, c) || dfs(r, c + 1) || dfs(r, c - 1)) {
-            return true;
-        }
-
-        if (maze.grid[r][c] != 'S') {
-            maze.grid[r][c] = ' ';
-        }
+        maze[x][y] = PATH; // backtrack
         return false;
     }
+    private boolean inBounds(int x, int y) {
+        return x >= 0 && y >= 0 && x < rows && y < cols;
+    }
 }
+
