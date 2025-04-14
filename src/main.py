@@ -1,35 +1,32 @@
-public class Main {
-    public static void main(String[] args) {
-        InputHandler inputHandler = new InputHandler();
-        int[] dimensions = inputHandler.getMazeDimensions();
-        int rows = dimensions[0];
-        int cols = dimensions[1];
+import java.util.Scanner;
 
-        MazeGenerator generator = new MazeGenerator(rows, cols);
-        char[][] maze = generator.generate();
+public class InputHandler {
+    private Scanner scanner;
 
-        MazeSolver solver = new MazeSolver(maze);
-        boolean solved = solver.solve();
-
-        System.out.println("\nGenerated Maze:");
-        printMaze(maze);
-
-        if (solved) {
-            System.out.println("\nSolved Maze:");
-            printMaze(maze);
-        } else {
-            System.out.println("\nNo path found from start to exit!");
-        }
-
-        inputHandler.close();
+    public InputHandler() {
+        scanner = new Scanner(System.in);
     }
 
-    private static void printMaze(char[][] maze) {
-        for (char[] row : maze) {
-            for (char c : row) {
-                System.out.print(c);
+    public int[] getMazeDimensions() {
+        int rows, cols;
+        while (true) {
+            try {
+                System.out.print("Enter maze dimensions (minimum 10x10): ");
+                rows = scanner.nextInt();
+                cols = scanner.nextInt();
+                if (rows >= 10 && cols >= 10) {
+                    return new int[]{rows, cols};
+                } else {
+                    System.out.println("Both values must be >= 10.");
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid input. Please enter two integers.");
+                scanner.nextLine(); // clear buffer
             }
-            System.out.println();
         }
+    }
+
+    public void close() {
+        scanner.close();
     }
 }
