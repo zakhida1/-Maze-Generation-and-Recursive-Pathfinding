@@ -30,7 +30,7 @@ Reads user input from the console for maze dimensions
 If invalid input is entered (non-numeric or too small) defaults are applied
 4. Displaying the Maze (MazePrinter.java)
 Responsible for printing the maze to the console with:
-# = wall
+#= wall
 = empty path
 S = start
 E = exit
