@@ -1,9 +1,9 @@
-#EXPLANATION
+## EXPLANATION
 
 Overview
 This Java project implements a maze generator using recursive backtracking and a recursive depth-first search (DFS) algorithm to find a path from a defined start point (S) to an exit point (E).The application runs in the console and provides a visual representation of both the maze and the solution path.The project is structured into modular Java classes and meets all the specified coursework requirements
 
-Project Objectives &Features
+## Project Objectives &Features
 
 Generate maze using recursive backtracking	
 Solve maze using recursive DFS	
@@ -14,7 +14,7 @@ GitHub with 8+ commits
 Sample output provided	
 Explanation and documentation
 
-How the program works:
+## How the program works:
 
 1. Maze Generation (in Maze.java)
 The maze is generated using a recursive backtracking algorithm
@@ -47,17 +47,17 @@ sample_output.txt
 README.md               
 .gitignore    
 
- Algorithms Used:
+ ## Algorithms Used:
 1)Maze Generation-Recursive Backtracking:
 Begins at a random position
 Recursively carves paths in random directions
 Ensures that all cells are accessible from the start
 
-2)Pathfinding –Recursive DFS:
+## 2)Pathfinding –Recursive DFS:
 Recursively explores all directions from the current cell
 Marks path if it leads to the exit,otherwise backtracks
 
-Constraints Fulfilled:
+## Constraints Fulfilled:
 Maze is always solvable
 Recursive algorithm only for solving
 No external libraries used
